@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <title>Frontend Mentor | E-commerce product page</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .attribution { font-size: 11px; text-align: center; }
+    .attribution a { color: hsl(228, 45%, 44%); }
+  </style>
+  <script defer src="script.js"></script>
+</head>
+<body>
+
+  <header>
+    <nav>
+      <div class="nav-bar-and-logo">
+        <div class="hamburger"></div>
+        <img src="./images/logo.svg" alt="Company logo">
+        <div class="nav-bar">
+          <ul>
+            <li><a href="#">Collections</a></li>
+            <li><a href="#">Men</a></li>
+            <li><a href="#">Women</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="avatar-info">
+        <img src="./images/icon-cart.svg" alt="A cart" class="cart">
+        <div class="cart-number"></div>
+        <img src="./images/image-avatar.png" alt="avatar image">
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="image-section">
+      <div class="image-carousel">
+        <img src="./images/image-product-1.jpg" alt="Product" class="carousel-image-slide">
+        <img src="./images/image-product-2.jpg" alt="Product" class="carousel-image-slide">
+        <img src="./images/image-product-3.jpg" alt="Product" class="carousel-image-slide">
+        <img src="./images/image-product-4.jpg" alt="Product" class="carousel-image-slide">
+        <div class="previous-icon">
+          <img src="./images/icon-previous.svg" alt="icon previous">
+        </div>
+        <div class="next-icon">
+          <img src="./images/icon-next.svg" alt="Icon next">
+        </div>
+      </div>
+      <div class="product-thumbnail">
+        <div class="image-thumbnail">
+          <img src="./images/image-product-1-thumbnail.jpg" alt="Product thumbnail">
+        </div>
+        <div class="image-thumbnail">
+          <img src="./images/image-product-2-thumbnail.jpg" alt="Product thumbnail">
+        </div>
+        <div class="image-thumbnail">
+          <img src="./images/image-product-3-thumbnail.jpg" alt="Product thumbnail">
+        </div>
+        <div class="image-thumbnail">
+          <img src="./images/image-product-4-thumbnail.jpg" alt="Product thumbnail">
+        </div>
+      </div>
+    </section>
+
+    <section class="purchase-section">
+      <p class="company-name">Sneaker Company</p>
+      <h1 class="product-title">
+        Fall Limited Edition Sneakers
+      </h1>
+      <p class="marketing">
+        These low-profile sneakers are your perfect casual wear companion. Featuring a durable rubber outer sole, they’ll withstand everything the weather can offer.
+      </p>
+      <div class="price-div">
+        <h1 class="current-price">
+          $125.00 <span class="percentage-off">50%</span>
+        </h1>
+        <p class="former-price">
+          $250.00
+        </p>
+      </div>
+      <div class="add-or-remove">
+        <button type="button" class="minus-button"><img src="./images/icon-minus.svg" alt="Minus button"></button>
+        <p class="product-amount">0</p>
+        <button type="button" class="plus-button"><img src="./images/icon-plus.svg" alt="Plus button"></button>
+      </div>
+
+      <button type="button" class="add-to-cart"><img src="./images/dark-cart.svg" alt="Cart icon"> Add to cart</button>
+    </section>
+  </main>
+
+
+
+
+
+
+
+
+  
+  <footer>
+    <div class="attribution">
+      Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
+      Coded by <a href="https://x.com/jaywritescodes/" target="_blank">Jonathan Udeh</a>.
+    </div>
+  </footer>
+</body>
+</html>
