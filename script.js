@@ -4,6 +4,7 @@ const cartBtn = document.querySelector(".cart");
 const prevBtn = document.querySelector(".previous-icon");
 const nextBtn = document.querySelector(".next-icon");
 const images = document.querySelectorAll(".carousel-image-slide");
+const isDesktop = window.matchMedia(`(min-width: 700px)`).matches;
 
 const productDetails = {
     price: 125.00,
@@ -21,7 +22,10 @@ hamburger.addEventListener("click", () => {
     hamburger.classList.toggle("open");
     navBar.classList.toggle("open");
     document.body.classList.toggle("no-scroll");
-    document.body.classList.toggle("shadow-overlay");
+    const overlay = document.createElement("div");
+    overlay.className = "overlay";
+    document.body.appendChild(overlay);
+    document.querySelector(".overlay").classList.toggle("open");
     document.querySelector(".previous-icon").classList.toggle("index");
 });
 
@@ -32,6 +36,10 @@ document.addEventListener("click", (e) => {
         document.body.classList.remove("no-scroll");
         document.body.classList.remove("shadow-overlay");
         document.querySelector(".previous-icon").classList.remove("index");
+
+        if (document.querySelector(".overlay")) {
+            document.querySelector(".overlay").classList.remove("open");
+        }
     }
 });
 
@@ -93,9 +101,7 @@ const showCart = () => {
         document.body.appendChild(cartContainer)
     }
 
-    if (productAmountValue < 1) {
-        document.querySelector(".cart-content").innerHTML = `<p>Your cart is empty</p>`;
-    }  
+    
 
     
     
@@ -182,9 +188,143 @@ addToCartBtn.addEventListener("click", () => {
             document.querySelector(".cart-content").innerHTML = `<p>Your cart is empty</p>`;
             productAmountValue = 0;
             productAmount.textContent = productAmountValue;
+            document.querySelector(".cart-number").classList.remove("open")
+            document.querySelector(".cart-number").textContent = productAmountValue;
         })
 
-        console.log(cartContainer);
     } 
 
+})
+
+
+
+
+
+
+
+
+
+
+// Desktop logics
+
+const thumbnailImages = document.querySelectorAll(".image-thumbnail");
+const lImages = document.querySelectorAll(".carousel-image-slide");
+
+const lightboxPreviewFunction = () => {
+    const lightBoxShow = document.createElement("div");
+    lightBoxShow.className = "lightbox";
+    lightBoxShow.innerHTML = `
+    <div class="lightbox-image-div">
+        <div class="lightbox-main-preview-div">
+            <img src="./images/image-product-1.jpg" alt="product image" class="main-image-preview" data-value="lightbox-img1">
+            <img src="./images/image-product-2.jpg" alt="product image" class="main-image-preview" data-value="lightbox-img2">
+            <img src="./images/image-product-3.jpg" alt="product image" class="main-image-preview" data-value="lightbox-img3">
+            <img src="./images/image-product-4.jpg" alt="product image" class="main-image-preview" data-value="lightbox-img4">
+            <img src="./images/icon-close.svg" alt="A cancel icon" class="close">
+            <div class="lightbox-previous">
+                <img src="./images/icon-previous.svg" alt="a previous icon">
+            </div>
+            <div class="lightbox-next">
+                <img src="./images/icon-next.svg" alt="A next icon">
+            </div>
+        </div>
+        
+        <div class="lightbox-thumbnail-div">
+            <img src="./images/image-product-1-thumbnail.jpg" alt="product thumbnail" class="lightbox-thumbnail" data-value="lightbox-img1">
+            <img src="./images/image-product-2-thumbnail.jpg" alt="product thumbnail" class="lightbox-thumbnail" data-value="lightbox-img2">
+            <img src="./images/image-product-3-thumbnail.jpg" alt="product thumbnail" class="lightbox-thumbnail" data-value="lightbox-img3">
+            <img src="./images/image-product-4-thumbnail.jpg" alt="product thumbnail" class="lightbox-thumbnail" data-value="lightbox-img4">
+        </div>
+    </div>
+    `;
+
+    document.body.appendChild(lightBoxShow);
+
+    const previewImages = document.querySelectorAll(".main-image-preview");
+    const lightboxThumbnail = document.querySelectorAll(".lightbox-thumbnail");
+    const closeBtn = document.querySelector(".close");
+    const lightboxPrevBtn = document.querySelector(".lightbox-previous");
+    const lightboxNextBtn = document.querySelector(".lightbox-next");
+    const lightboxImages = document.querySelectorAll(".main-image-preview");
+    let currentPreviewImage = 0;
+    lightboxImages[currentPreviewImage].style.display = "block";
+
+    // responsible for showing the images that match the thumbnail
+    lightboxThumbnail.forEach(lbt => {
+        lbt.addEventListener("click", (e) => {
+            previewImages.forEach(pImage => {
+                pImage.style.display = "none";
+                if (pImage.dataset.value === e.target.dataset.value) {
+                    pImage.style.display = "block";
+                }
+            })
+        })
+    })
+
+    // responsible for closig the preview when clicked on
+    closeBtn.addEventListener("click", () => {
+        lightBoxShow.innerHTML = "";
+        lightBoxShow.style.display = "none";
+    });
+
+    // responsible for sliding the images when called
+    const slideLightboxImage = (direction) => {
+        currentPreviewImage += direction;
+
+        for (let i = 0; i < lightboxImages.length; i++) {
+            const element = lightboxImages[i];
+            element.style.display = "none";
+        }
+
+        if (currentPreviewImage < 0) {
+            currentPreviewImage = lightboxImages.length - 1;
+        } else if (currentPreviewImage >= lightboxImages.length) {
+            currentPreviewImage = 0;
+        }
+
+        lightboxImages[currentPreviewImage].style.display = "block";
+
+    }
+
+    lightboxPrevBtn.addEventListener("click", () => {
+        slideLightboxImage(-1);
+    });
+
+    lightboxNextBtn.addEventListener("click", () => {
+        slideLightboxImage(1);
+    })
+
+}
+
+
+thumbnailImages.forEach(thumbnailImage => {
+    thumbnailImage.addEventListener("click", (e) => {
+
+        thumbnailImages.forEach(imgDiv => {
+            const img = imgDiv.querySelector("img");  // getting the image in the thumbnail div
+            img.classList.remove("thumbnail-border");
+            img.classList.remove("thumbnail-overlay");
+        })
+
+        const clickedImg = e.currentTarget.querySelector("img");  // Get the clicked image
+        clickedImg.classList.add("thumbnail-border");
+        clickedImg.classList.add("thumbnail-overlay")
+
+        images.forEach(image => {
+            image.style.display = "none";
+            if (image.dataset.value === e.target.dataset.value) {
+               // console.log(` we found our match ${image.dataset.value} matches ${e.target.dataset.value}`)
+               image.style.display = "block";
+            }
+        })
+    })
+})
+
+
+lImages.forEach(image => {
+    image.addEventListener("click", () => {
+        if (isDesktop) {
+            lightboxPreviewFunction();
+        }
+    })
 })

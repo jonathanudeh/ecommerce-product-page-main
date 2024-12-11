@@ -32,7 +32,7 @@
       <div class="avatar-info">
         <img src="./images/icon-cart.svg" alt="A cart" class="cart">
         <div class="cart-number"></div>
-        <img src="./images/image-avatar.png" alt="avatar image">
+        <img src="./images/image-avatar.png" alt="avatar image" class="avatar-img">
       </div>
     </nav>
   </header>
@@ -40,10 +40,10 @@
   <main>
     <section class="image-section">
       <div class="image-carousel">
-        <img src="./images/image-product-1.jpg" alt="Product" class="carousel-image-slide">
-        <img src="./images/image-product-2.jpg" alt="Product" class="carousel-image-slide">
-        <img src="./images/image-product-3.jpg" alt="Product" class="carousel-image-slide">
-        <img src="./images/image-product-4.jpg" alt="Product" class="carousel-image-slide">
+        <img src="./images/image-product-1.jpg" alt="Product" class="carousel-image-slide" data-value="img1">
+        <img src="./images/image-product-2.jpg" alt="Product" class="carousel-image-slide" data-value="img2">
+        <img src="./images/image-product-3.jpg" alt="Product" class="carousel-image-slide" data-value="img3">
+        <img src="./images/image-product-4.jpg" alt="Product" class="carousel-image-slide" data-value="img4">
         <div class="previous-icon">
           <img src="./images/icon-previous.svg" alt="icon previous">
         </div>
@@ -51,18 +51,19 @@
           <img src="./images/icon-next.svg" alt="Icon next">
         </div>
       </div>
+      
       <div class="product-thumbnail">
         <div class="image-thumbnail">
-          <img src="./images/image-product-1-thumbnail.jpg" alt="Product thumbnail">
+          <img src="./images/image-product-1-thumbnail.jpg" alt="Product thumbnail"  data-value="img1">
         </div>
         <div class="image-thumbnail">
-          <img src="./images/image-product-2-thumbnail.jpg" alt="Product thumbnail">
+          <img src="./images/image-product-2-thumbnail.jpg" alt="Product thumbnail" data-value="img2">
         </div>
         <div class="image-thumbnail">
-          <img src="./images/image-product-3-thumbnail.jpg" alt="Product thumbnail">
+          <img src="./images/image-product-3-thumbnail.jpg" alt="Product thumbnail" data-value="img3">
         </div>
         <div class="image-thumbnail">
-          <img src="./images/image-product-4-thumbnail.jpg" alt="Product thumbnail">
+          <img src="./images/image-product-4-thumbnail.jpg" alt="Product thumbnail" data-value="img4">
         </div>
       </div>
     </section>
@@ -83,13 +84,16 @@
           $250.00
         </p>
       </div>
-      <div class="add-or-remove">
-        <button type="button" class="minus-button"><img src="./images/icon-minus.svg" alt="Minus button"></button>
-        <p class="product-amount">0</p>
-        <button type="button" class="plus-button"><img src="./images/icon-plus.svg" alt="Plus button"></button>
-      </div>
 
-      <button type="button" class="add-to-cart"><img src="./images/dark-cart.svg" alt="Cart icon"> Add to cart</button>
+      <div class="add-to-cart-button-house">
+        <div class="add-or-remove">
+          <button type="button" class="minus-button"><img src="./images/icon-minus.svg" alt="Minus button"></button>
+          <p class="product-amount">0</p>
+          <button type="button" class="plus-button"><img src="./images/icon-plus.svg" alt="Plus button"></button>
+        </div>
+  
+        <button type="button" class="add-to-cart"><img src="./images/dark-cart.svg" alt="Cart icon"> Add to cart</button>
+      </div>
     </section>
   </main>
 
