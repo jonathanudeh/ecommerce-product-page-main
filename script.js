@@ -4,17 +4,21 @@ const cartBtn = document.querySelector(".cart");
 const prevBtn = document.querySelector(".previous-icon");
 const nextBtn = document.querySelector(".next-icon");
 const images = document.querySelectorAll(".carousel-image-slide");
+const minusBtn = document.querySelector(".minus-button");
+const plusBtn = document.querySelector(".plus-button");
+const productAmount = document.querySelector(".product-amount");
+const addToCartBtn = document.querySelector(".add-to-cart");
 const isDesktop = window.matchMedia(`(min-width: 700px)`).matches;
+let productAmountValue = 0;
+let currentImage = 0; 
 
+// product object to use while updating the cart
 const productDetails = {
     price: 125.00,
     name: "Fall Limited Edition Sneakers",
     thumbNailImgSrc: "./images/image-product-1-thumbnail.jpg",
     deleteIcon: "./images/icon-delete.svg"
 }
-
-let productAmountValue = 0;
-let currentImage = 0; 
 
 
 // The hamburger section 
@@ -29,6 +33,7 @@ hamburger.addEventListener("click", () => {
     document.querySelector(".previous-icon").classList.toggle("index");
 });
 
+// listen for clicks on the body(document)
 document.addEventListener("click", (e) => {
     if (!hamburger.contains(e.target) && !navBar.contains(e.target)) {
         hamburger.classList.remove("open");
@@ -37,6 +42,8 @@ document.addEventListener("click", (e) => {
         document.body.classList.remove("shadow-overlay");
         document.querySelector(".previous-icon").classList.remove("index");
 
+        // .overlay will exist if the hamburger is clicked/active
+        // if it exist the document is clicked remove it's visibility
         if (document.querySelector(".overlay")) {
             document.querySelector(".overlay").classList.remove("open");
         }
@@ -71,21 +78,8 @@ nextBtn.addEventListener("click", () => {
 });
 
 
-
-
-
-
-
-
-cartBtn.addEventListener("click", () => {
-    showCart();
-    
-})
-
-
 const showCart = () => {
     let cartContainer = document.querySelector(".cart-div"); // checks if cart is already in the DOM 
-
 
     // if cart isn't in the DOM then we create cart
     if (!cartContainer) {
@@ -96,13 +90,11 @@ const showCart = () => {
             <p>Cart</p>
         </div>
         <div class="cart-content">
+            <p class="empty-cart">Your cart is empty</p>
         </div>
         `;
         document.body.appendChild(cartContainer)
     }
-
-    
-
     
     
     cartContainer.classList.toggle("open");
@@ -117,29 +109,8 @@ const showCart = () => {
     })
 }
 
-
-
-
-const minusBtn = document.querySelector(".minus-button");
-const plusBtn = document.querySelector(".plus-button");
-let productAmount = document.querySelector(".product-amount");
-const addToCartBtn = document.querySelector(".add-to-cart");
-
-minusBtn.addEventListener("click", () => {
-    if (productAmountValue > 0) productAmountValue--;
-    productAmount.textContent = productAmountValue;
-    console.log(productAmountValue);
-})
-
-plusBtn.addEventListener("click", () => {
-    if (productAmountValue >= 0) productAmountValue++;
-    productAmount.textContent = productAmountValue;
-    console.log(productAmountValue);
-})
-
-
-//
-addToCartBtn.addEventListener("click", () => {
+// logic responsible for handling the add to cart button
+const addToCartFunction = () => {
     // get the cart container if it exist
     let cartContainer = document.querySelector(".cart-div");
 
@@ -193,15 +164,25 @@ addToCartBtn.addEventListener("click", () => {
         })
 
     } 
+}
 
+
+// logic for updating the amount of products
+minusBtn.addEventListener("click", () => {
+    if (productAmountValue > 0) productAmountValue--;
+    productAmount.textContent = productAmountValue;
+    console.log(productAmountValue);
 })
 
-
-
-
-
-
-
+// logic for updating amount of products
+plusBtn.addEventListener("click", () => {
+    if (productAmountValue >= 0) productAmountValue++;
+    productAmount.textContent = productAmountValue;
+    console.log(productAmountValue);
+})
+//
+cartBtn.addEventListener("click", showCart)
+addToCartBtn.addEventListener("click", addToCartFunction);
 
 
 
@@ -211,6 +192,7 @@ const thumbnailImages = document.querySelectorAll(".image-thumbnail");
 const lImages = document.querySelectorAll(".carousel-image-slide");
 
 const lightboxPreviewFunction = () => {
+    // creating our element to show the image previews
     const lightBoxShow = document.createElement("div");
     lightBoxShow.className = "lightbox";
     lightBoxShow.innerHTML = `
@@ -240,6 +222,7 @@ const lightboxPreviewFunction = () => {
 
     document.body.appendChild(lightBoxShow);
 
+    // our local variables
     const previewImages = document.querySelectorAll(".main-image-preview");
     const lightboxThumbnail = document.querySelectorAll(".lightbox-thumbnail");
     const closeBtn = document.querySelector(".close");
@@ -252,20 +235,44 @@ const lightboxPreviewFunction = () => {
     // responsible for showing the images that match the thumbnail
     lightboxThumbnail.forEach(lbt => {
         lbt.addEventListener("click", (e) => {
+            // loop through after every click to remove borders from thumbnail
+            lightboxThumbnail.forEach(lbthumnail => lbthumnail.classList.remove("thumbnail-border"));
+            e.target.classList.add("thumbnail-border"); // adds borders only to clicked thumbnail
+
+            // looping through after every click to hide all preview images
             previewImages.forEach(pImage => {
                 pImage.style.display = "none";
-                if (pImage.dataset.value === e.target.dataset.value) {
-                    pImage.style.display = "block";
-                }
             })
+
+            // used a different method from the one I used in the thumbnailImages logic to show the image preview that matches the thumbnail
+            const target = e.target.dataset.value;
+            // finds the image that matches the thumbnail
+            const previewDatasetValue = Array.from(previewImages).find(pImage => pImage.dataset.value === target);
+            // if found display it
+            if (previewDatasetValue) {
+                previewDatasetValue.style.display = "block"
+            }
         })
     })
 
-    // responsible for closig the preview when clicked on
+    // hover effect chaning the close button's color
+    closeBtn.addEventListener("mouseover", (e) => {
+        closeBtn.setAttribute("src", "./images/icon-close-hover.svg")
+        console.log(e.target.src)
+    })
+
+    // hover effect for setting the close button back to what it was
+    closeBtn.addEventListener("mouseout", (e) => {
+        closeBtn.setAttribute("src", "./images/icon-close.svg")
+        console.log(e.target.src)
+    })
+
+     // responsible for closig the preview when clicked on
     closeBtn.addEventListener("click", () => {
         lightBoxShow.innerHTML = "";
         lightBoxShow.style.display = "none";
     });
+   
 
     // responsible for sliding the images when called
     const slideLightboxImage = (direction) => {
@@ -286,10 +293,12 @@ const lightboxPreviewFunction = () => {
 
     }
 
+    // listening for clicks so it can call the image slide function
     lightboxPrevBtn.addEventListener("click", () => {
         slideLightboxImage(-1);
     });
 
+    // listening for clicks so it can call the image slide function
     lightboxNextBtn.addEventListener("click", () => {
         slideLightboxImage(1);
     })
@@ -300,16 +309,17 @@ const lightboxPreviewFunction = () => {
 thumbnailImages.forEach(thumbnailImage => {
     thumbnailImage.addEventListener("click", (e) => {
 
+        // looping through the images again at every click so as to remove the border
         thumbnailImages.forEach(imgDiv => {
             const img = imgDiv.querySelector("img");  // getting the image in the thumbnail div
-            img.classList.remove("thumbnail-border");
-            img.classList.remove("thumbnail-overlay");
+            img.classList.remove("thumbnail-border"); 
         })
 
+        // setting the border only for the thumbnail image clicked
         const clickedImg = e.currentTarget.querySelector("img");  // Get the clicked image
         clickedImg.classList.add("thumbnail-border");
-        clickedImg.classList.add("thumbnail-overlay")
 
+        // after every click I remove all image, only displaying the image that matches the thumbnail image
         images.forEach(image => {
             image.style.display = "none";
             if (image.dataset.value === e.target.dataset.value) {
@@ -321,8 +331,9 @@ thumbnailImages.forEach(thumbnailImage => {
 })
 
 
-lImages.forEach(image => {
+images.forEach(image => {
     image.addEventListener("click", () => {
+        // checks if the user is using a desktop to view the site by checking the users width. Only then can the ligboxpreviewfunction be called after the click
         if (isDesktop) {
             lightboxPreviewFunction();
         }

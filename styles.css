@@ -657,15 +657,18 @@ main {
                 height: 55px;
                 border-radius: 10px;
 
-                img {
-                    width: 55px;
-                    height: 55px;
-                    object-fit: contain;
-                    border-radius: 5px;
-                    cursor: pointer;
+                .image-thumbnail {
 
-                    
+                    img {
+                        width: 55px;
+                        height: 55px;
+                        object-fit: contain;
+                        border-radius: 5px;
+                        cursor: pointer;
+                    }
                 }
+
+                
             }
         }
 
@@ -840,14 +843,4 @@ main {
     border: 2px solid var(--Orange);
 }
 
-.thumbnail-overlay::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: var(--Light-grayish-blue);
-    transition: all 1s ease-in-out;
-}
 
