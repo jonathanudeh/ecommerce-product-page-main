@@ -11,7 +11,6 @@
     --lightbox-Black: rgb(0, 0, 0, 60%);
 }
 
-
 * {
     box-sizing: border-box;
     padding: 0;
@@ -25,7 +24,6 @@ body {
     font-optical-sizing: auto;
     font-style: normal;
     font-variation-settings: "YOPQ" 300;
-    
 }
 
 .no-scroll {
@@ -34,7 +32,7 @@ body {
 
 .overlay {
     background-color: var(--lightbox-Black);
-    height: 100vh;
+    min-height: 150vh;
     width: 40%;
     transition: all .3s ease-in-out;
     position: absolute;
@@ -126,14 +124,14 @@ header {
             }
 
             .nav-bar {
-                width: 250px;
+                width: 130%;
                 height: 100vh;
                 background-color: var(--White);
                 position: absolute;
                 top: 0;
                 left: -350px;
                 padding: 70px 0 0 20px;
-                display: none;
+                visibility: hidden;
                 z-index: 2;
 
                 ul {
@@ -161,7 +159,7 @@ header {
 
 
                 &.open {
-                    display: block;
+                    visibility: visible;
                     left: -20px;
                     transition: all .3s ease-in-out;
                 }
@@ -404,10 +402,11 @@ main {
     width: 92%;
     height: 260px;
     position: fixed;
-    top: 12%;
+    top: 15%;
     left: 5%;
     margin: 0 auto;
     border-radius: 10px;
+    box-shadow: 1px 2px 10px  var(--Very-dark-blue);
     display: none;
 
 
@@ -494,13 +493,13 @@ main {
 
 
 
-@media (min-width: 700px) {
+@media (min-width: 1000px) {
     header {
-        padding: 0 0px;
+        padding: 0 200px;
         position: fixed;
         top: 0;
-        left: 10%;
-        width: 80%;
+        left: 0%;
+        width: 100%;
         background-color: var(--White);
         height: 70px;
         margin-bottom: 500px;
@@ -544,6 +543,7 @@ main {
                     align-items: center;
                     transition: all .3s ease-in-out;
                     padding: 0;
+                    visibility: visible;
     
                     ul {
                         display: flex;
@@ -577,6 +577,7 @@ main {
 
                             &:hover {
                                 border-bottom: 3px solid var(--Orange);
+                                cursor: pointer;
                             }
                             
                         }
@@ -733,10 +734,10 @@ main {
 
     .cart-div {
         width: 400px;
-        top: 10%;
+        top: 15%;
         right: -50%;
         z-index: 4;
-        box-shadow: 1px 2px 10px  black;
+        box-shadow: 1px 2px 10px  var(--Very-dark-blue);
     }
 }
 

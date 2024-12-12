@@ -8,7 +8,7 @@ const minusBtn = document.querySelector(".minus-button");
 const plusBtn = document.querySelector(".plus-button");
 const productAmount = document.querySelector(".product-amount");
 const addToCartBtn = document.querySelector(".add-to-cart");
-const isDesktop = window.matchMedia(`(min-width: 700px)`).matches;
+const isDesktop = window.matchMedia(`(min-width: 1000px)`).matches;
 let productAmountValue = 0;
 let currentImage = 0; 
 
@@ -271,8 +271,7 @@ const lightboxPreviewFunction = () => {
     closeBtn.addEventListener("click", () => {
         lightBoxShow.innerHTML = "";
         lightBoxShow.style.display = "none";
-    });
-   
+    }); 
 
     // responsible for sliding the images when called
     const slideLightboxImage = (direction) => {
