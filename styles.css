@@ -659,14 +659,44 @@ main {
                 border-radius: 10px;
 
                 .image-thumbnail {
+                    cursor: pointer;
+                    position: relative;
 
                     img {
                         width: 55px;
                         height: 55px;
                         object-fit: contain;
                         border-radius: 5px;
-                        cursor: pointer;
                     }
+
+                    .img-overlay-hover {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        background-color: transparent;
+                        opacity: 1;
+                        border-radius: 5px;
+                        transition: all .3s ease;
+                       
+                        &:hover {
+                            background-color: rgba(255, 255, 255, 0.6);
+                        }
+                    }
+                    .img-overlay {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        background-color: transparent;
+                        border-radius: 5px;
+                        opacity: 1;
+                        transition: background-color .3s ease;
+                    }
+                    
+                    
                 }
 
                 
@@ -829,12 +859,56 @@ main {
             flex-direction: row;
             justify-content: space-around;
             
-
-            img {
-                width: 60px;
-                border-radius: 10px;
+            .lightbox-image-thumbnail {
                 cursor: pointer;
+                position: relative;
+                width: 55px;
+                height: 55px;
+                border-radius: 5px;
+
+
+                img {
+                    width: 55px;
+                    height: 55px;
+                    object-fit: contain;
+                    border-radius: 5px;
+                }
+
+                .lightbox-img-overlay-hover {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background-color: transparent;
+                    opacity: 1;
+                    border-radius: 5px;
+                    transition: all .3s ease;
+                    pointer-events: none;
+                
+                    &:hover {
+                        background-color: rgba(255, 255, 255, 0.6);
+                        
+                    }
+                }
+                
+                
+                .lightbox-img-overlay {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    height: 100%;
+                    width: 100%; 
+                    background-color: transparent;
+                    border-radius: 5px;
+                    opacity: 1;
+                    transition: background-color .3s ease;
+                    pointer-events: none; 
+                }
+                
             }
+
+            
         }
     }
 }
@@ -843,5 +917,4 @@ main {
 .thumbnail-border {
     border: 2px solid var(--Orange);
 }
-
 

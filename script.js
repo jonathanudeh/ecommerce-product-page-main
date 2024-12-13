@@ -189,7 +189,8 @@ addToCartBtn.addEventListener("click", addToCartFunction);
 // Desktop logics
 
 const thumbnailImages = document.querySelectorAll(".image-thumbnail");
-const lImages = document.querySelectorAll(".carousel-image-slide");
+const imgOverlay = document.querySelectorAll(".img-overlay");
+
 
 const lightboxPreviewFunction = () => {
     // creating our element to show the image previews
@@ -212,10 +213,26 @@ const lightboxPreviewFunction = () => {
         </div>
         
         <div class="lightbox-thumbnail-div">
-            <img src="./images/image-product-1-thumbnail.jpg" alt="product thumbnail" class="lightbox-thumbnail" data-value="lightbox-img1">
-            <img src="./images/image-product-2-thumbnail.jpg" alt="product thumbnail" class="lightbox-thumbnail" data-value="lightbox-img2">
-            <img src="./images/image-product-3-thumbnail.jpg" alt="product thumbnail" class="lightbox-thumbnail" data-value="lightbox-img3">
-            <img src="./images/image-product-4-thumbnail.jpg" alt="product thumbnail" class="lightbox-thumbnail" data-value="lightbox-img4">
+            <div class="lightbox-image-thumbnail">
+                <img src="./images/image-product-1-thumbnail.jpg" alt="Product thumbnail"  class="lightbox-thumbnail" data-value="lightbox-img1">
+                <div class="lightbox-img-overlay" data-value="lightbox-img1"></div>
+                <div class="lightbox-img-overlay-hover" data-value="lightbox-img1"></div>
+            </div>
+            <div class="lightbox-image-thumbnail">
+                <img src="./images/image-product-2-thumbnail.jpg" alt="Product thumbnail" class="lightbox-thumbnail" data-value="lightbox-img2">
+                <div class="lightbox-img-overlay" data-value="lightbox-img2"></div>
+                <div class="lightbox-img-overlay-hover" data-value="lightbox-img2"></div>
+            </div>
+            <div class="lightbox-image-thumbnail">
+                <img src="./images/image-product-3-thumbnail.jpg" alt="Product thumbnail" class="lightbox-thumbnail" data-value="lightbox-img3">
+                <div class="lightbox-img-overlay" data-value="lightbox-img3"></div>
+                <div class="lightbox-img-overlay-hover" data-value="lightbox-img3"></div>
+            </div>
+            <div class="lightbox-image-thumbnail">
+                <img src="./images/image-product-4-thumbnail.jpg" alt="Product thumbnail" class="lightbox-thumbnail" data-value="lightbox-img4">
+                <div class="lightbox-img-overlay" data-value="lightbox-img4"></div>
+                <div class="lightbox-img-overlay-hover" data-value="lightbox-img4"></div>
+            </div>
         </div>
     </div>
     `;
@@ -229,6 +246,7 @@ const lightboxPreviewFunction = () => {
     const lightboxPrevBtn = document.querySelector(".lightbox-previous");
     const lightboxNextBtn = document.querySelector(".lightbox-next");
     const lightboxImages = document.querySelectorAll(".main-image-preview");
+    const lightboxImageOverlay = document.querySelectorAll(".lightbox-img-overlay");
     let currentPreviewImage = 0;
     lightboxImages[currentPreviewImage].style.display = "block";
 
@@ -252,6 +270,17 @@ const lightboxPreviewFunction = () => {
             if (previewDatasetValue) {
                 previewDatasetValue.style.display = "block"
             }
+
+            /** responsible for the overlay effect when thumbnail is clicked **/
+            lightboxImageOverlay.forEach(overlay => {
+                overlay.style.backgroundColor = "transparent";
+                overlay.style.border = "0";
+                
+                if (overlay.dataset.value === e.target.dataset.value) {
+                    overlay.style.backgroundColor = "rgba(255, 255, 255, 0.8)";
+                    overlay.style.border = "1px solid var(--Orange)";
+                }
+            })
         })
     })
 
@@ -289,8 +318,22 @@ const lightboxPreviewFunction = () => {
         }
 
         lightboxImages[currentPreviewImage].style.display = "block";
+       
+        /** This part of the code is so that when sliding the image the overlay corresponds with the current active image **/
+        lightboxImageOverlay.forEach(overlay => {
+            overlay.style.backgroundColor = "transparent";
+            overlay.style.border = "0";
+            
+            if (overlay.dataset.value === lightboxImages[currentPreviewImage].dataset.value) {
+                overlay.style.backgroundColor = "rgba(255, 255, 255, 0.8)";
+                overlay.style.border = "1px solid var(--Orange)";
+            }
+        })
 
     }
+
+
+    
 
     // listening for clicks so it can call the image slide function
     lightboxPrevBtn.addEventListener("click", () => {
@@ -317,6 +360,7 @@ thumbnailImages.forEach(thumbnailImage => {
         // setting the border only for the thumbnail image clicked
         const clickedImg = e.currentTarget.querySelector("img");  // Get the clicked image
         clickedImg.classList.add("thumbnail-border");
+        //e.currentTarget.classList.add("image-overlay");
 
         // after every click I remove all image, only displaying the image that matches the thumbnail image
         images.forEach(image => {
@@ -324,6 +368,19 @@ thumbnailImages.forEach(thumbnailImage => {
             if (image.dataset.value === e.target.dataset.value) {
                // console.log(` we found our match ${image.dataset.value} matches ${e.target.dataset.value}`)
                image.style.display = "block";
+               
+            }
+        })
+
+
+        imgOverlay.forEach(overlay => {
+           
+            overlay.style.backgroundColor = "transparent";
+            overlay.style.border = "0";
+            
+            if (overlay.dataset.value === e.target.dataset.value) {
+                overlay.style.backgroundColor = "rgba(255, 255, 255, 0.8)";
+                overlay.style.border = "1px solid var(--Orange)";
             }
         })
     })
